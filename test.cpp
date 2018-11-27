@@ -4,6 +4,7 @@
 #include <time.h>
 #include <GLFW/glfw3.h>
 #include "Boid.h"
+#include "Obstacle.h"
 // #include "Flock.h"
 
 #define SCREEN_WIDTH 1000
@@ -13,8 +14,12 @@ using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 // void setupFlock(Flock);
 void drawPoint(int x, int y);
+
+vector<Boid> flock;
+vector<Obstacle> obstacles;
 
 int main(void)
 {
@@ -45,17 +50,19 @@ int main(void)
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Boid b(300.5, 400.6);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+
+    // Boid b(300.5, 400.6);
     // Flock flock;
     // setupFlock(flock);
     // flock.getSize();
 
-    vector<Boid> flock;
-    for(int i = 0; i < 100; i++)
+
+    
+    for(int i = 0; i < 200; i++)
     {
         flock.push_back(Boid((float)SCREEN_WIDTH/2, (float)SCREEN_WIDTH/2));
     }
-    cout<<flock.size()<<endl;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -63,13 +70,15 @@ int main(void)
         /* Render here */
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-     
+
         for(int i = 0; i < flock.size(); i++)
         {
-            flock[i].run(flock);
+            flock[i].run(flock, obstacles);
         }
-        
-        
+        for(int i = 0; i < obstacles.size(); i++)
+        {
+            obstacles[i].add();
+        }
         
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -97,21 +106,15 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-void drawPoint(int x, int y){
-    int point[] = { x, y };
-    glEnableClientState( GL_VERTEX_ARRAY ); //enable drawing vertex array
-    // glPointSize(40.0);
-    glVertexPointer( 2, GL_INT, 0, point );
-    glDrawArrays( GL_POINTS, 0, 1);
-    glDisableClientState( GL_VERTEX_ARRAY );
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        flock.push_back(Boid((float)xpos, abs((float)ypos - SCREEN_HEIGHT)));
+    } else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS){
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        obstacles.push_back(Obstacle((float)xpos, abs((float)ypos - SCREEN_HEIGHT)));
+    }    
 }
-
-// void setupFlock(Flock flock){
-    
-//     for(int i = 0; i < 100; i++)
-//     {
-//         Boid b(SCREEN_WIDTH/2, SCREEN_WIDTH/2);
-//         flock.addBoid(b);
-//     }
-    
-// }
