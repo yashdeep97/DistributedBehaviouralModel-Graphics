@@ -5,7 +5,6 @@
 #include <GLFW/glfw3.h>
 #include "Boid.h"
 #include "Obstacle.h"
-// #include "Flock.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 1000

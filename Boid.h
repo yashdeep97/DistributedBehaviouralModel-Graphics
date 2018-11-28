@@ -81,11 +81,12 @@ class Boid
                 diffX = obstacles[i].posX - posX, diffY = obstacles[i].posY - posY;
                 d = sqrt((diffX * diffX) + (diffY * diffY));
                 float dot = velX*diffX + velY*diffY;
-                if(d < 100.0 && dot > 0.5){                    
+                if(dot == (-1) * d){
+
+                } else if(d < 100.0 && dot > 0.5){                    
                     sumX += (velX - diffX)/(d);
                     sumY += (velY - diffY)/(d);
-                }
-                if(d < 100.0 && dot < 0){                    
+                } else if(d < 100.0 && dot < 0){                    
                     sumX -= (velX - diffX)/(d*5);
                     sumY -= (velY - diffY)/(d*5);
                 }
