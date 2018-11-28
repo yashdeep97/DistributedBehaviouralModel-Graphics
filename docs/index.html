@@ -16,6 +16,7 @@
 <body data-spy="scroll" data-target=".sidenav" data-offset="60">
 
 <div id="mySidenav" class="sidenav">
+<a href="#Video">Video</a>
 <a href="#Images">Images</a>
   <a href="#Headerfiles">Header Files</a>
   <ul>
@@ -35,49 +36,36 @@
 </div>
 
 <div id="main">
+
+  <h1 id="Video">Video</h1>
+  <iframe width="1244" height="700" src="https://www.youtube.com/embed/8HT_hekYyRg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ 
   <h1 id="Images">Images:</h1>
-  <a href="images/basics.png" data-fancybox="gallery" data-caption="basics">
-  <img class="thumbnail" src="images/basics.png" alt="" />
+
+  <a href="images/initialExplosion.png" data-fancybox="gallery" data-caption="Initial Explosion">
+  <img class="thumbnail" src="images/initialExplosion.png" alt="" />
   </a>
-  <a href="images/Board.png" data-fancybox="gallery" data-caption="Board">
-  <img class="thumbnail" src="images/Board.png" alt="" />
+  <a href="images/afterExplosion.png" data-fancybox="gallery" data-caption="After Explosion">
+  <img class="thumbnail" src="images/afterExplosion.png" alt="" />
   </a>
-  <a href="images/CircleRecursion.png" data-fancybox="gallery" data-caption="CircleRecursion">
-  <img class="thumbnail" src="images/CircleRecursion.png" alt="" />
+  <a href="images/Alignment&Cohesion.png" data-fancybox="gallery" data-caption="Alignment & Cohesion">
+  <img class="thumbnail" src="images/Alignment&Cohesion.png" alt="" />
   </a>
-  <a href="images/Crystal.png" data-fancybox="gallery" data-caption="Crystal">
-  <img class="thumbnail" src="images/Crystal.png" alt="" />
+  <a href="images/rules.png" data-fancybox="gallery" data-caption="Apply rules of Cohesion, Alignment and Collision avoidance">
+	<img class="thumbnail" src="images/rules.png" alt="" />
+	</a>
+  <a href="images/AvoidObstacle.jpg" data-fancybox="gallery" data-caption="Avoid obstacles">
+  <img class="thumbnail" src="images/AvoidObstacle.jpg" alt="" />
   </a>
-  <a href="images/DragonCurve.png" data-fancybox="gallery" data-caption="DragonCurve">
-  <img class="thumbnail" src="images/DragonCurve.png" alt="" />
-  </a>
-  <a href="images/HexFractal.png" data-fancybox="gallery" data-caption="HexFractal">
-  <img class="thumbnail" src="images/HexFractal.png" alt="" />
-  </a>
-  <a href="images/KochSnowflake.png" data-fancybox="gallery" data-caption="KochSnowflake">
-  <img class="thumbnail" src="images/KochSnowflake.png" alt="" />
-  </a>
-  <a href="images/Pentaplexity.png" data-fancybox="gallery" data-caption="Pentaplexity">
-  <img class="thumbnail" src="images/Pentaplexity.png" alt="" />
-  </a>
-  <a href="images/Rings.png" data-fancybox="gallery" data-caption="Rings">
-  <img class="thumbnail" src="images/Rings.png" alt="" />
-  </a>
-  <a href="images/Shrub.png" data-fancybox="gallery" data-caption="Shrub">
-  <img class="thumbnail" src="images/Shrub.png" alt="" />
-  </a>
-  <a href="images/SierpinskiTriangle.png" data-fancybox="gallery" data-caption="SierpinskiTriangle">
-  <img class="thumbnail" src="images/SierpinskiTriangle.png" alt="" />
-  </a>
-  <a href="images/Tree.png" data-fancybox="gallery" data-caption="Tree">
-  <img class="thumbnail" src="images/Tree.png" alt="" />
-  </a>
+
+  
 
   <h1 id="Headerfiles">Header Files</h1>
   <h2 id="boid">Boid.h</h2>
 	<p>
 		This header file contains a class <i>Boid</i> and each of its objects represents a boid on the screen.<br>
 		It defines methods to modify the velocity of the boids by applying various rules of flocking on each boid. 
+		<br>We apply the rules of <b>Collision Avoidance</b>, <b>Velocity Matching (Alignment)</b> and <b>Flock Centering (Cohesion)</b> on each boid.
 		<pre>
 		  <code>
 			// Define the boundaries of the Viewport

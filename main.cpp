@@ -29,7 +29,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Flock Simulation", NULL, NULL);
     if (window == NULL)
     {
 		cout<<"Failed to create window"<<endl;
@@ -115,6 +115,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         {
             flock.push_back(Boid((float)SCREEN_WIDTH/2, (float)SCREEN_WIDTH/2));
         }
+        cout<<"Hello!"<<endl;
         flag = 1;
     }
 }
