@@ -16,18 +16,14 @@
 <body data-spy="scroll" data-target=".sidenav" data-offset="60">
 
 <div id="mySidenav" class="sidenav">
-<!-- <h1>Contents</h1> -->
-<a href="#FractalImages">Fractal Images</a>
+<a href="#Images">Images</a>
   <a href="#Headerfiles">Header Files</a>
   <ul>
 <li><a href="#boid">Boid.h</a></li>
 <li><a href="#obstacle">Obstacle.h</a></li>
 </ul>
-  <a href="#Fractals">Fractals</a>
-  <ul>
-<li><a href="#Recursion">Recursion</a></li>
-<li><a href="#Lsystems">L-Systems</a></li>
-</ul>
+  <a href="#Flock">Flock Simulation</a>
+
   <div class="pos-bottom doneBy">
     <h3 class="doneBy">Done By:</h2>
     <ul>
@@ -39,7 +35,7 @@
 </div>
 
 <div id="main">
-  <h1 id="FractalImages">Fractal Images:</h1>
+  <h1 id="Images">Images:</h1>
   <a href="images/basics.png" data-fancybox="gallery" data-caption="basics">
   <img class="thumbnail" src="images/basics.png" alt="" />
   </a>
@@ -113,27 +109,27 @@
 
 					// Applies the rule of collision avoidance on the boids, so that they do not collide with each other.
 					// @param flock : a vector of all the Boid objects
-					void Avoidance(vector<Boid> flock);
+					void Avoidance(vector&ltBoid&gt flock);
 
 					// Applies the rule of collision avoidance on the boids, so that they do not collide with the obstacles.
 					// @param obstacles : a vector of all the Obstacle objects
-					void avoidObstacles(vector<Obstacle> obstacles);
+					void avoidObstacles(vector&ltObstacle&gt obstacles);
 
 					// Applies the rule of cohesion on the boids.
 					// It applies a force on all the boids towards the centre of the flock.
 					// Thus keeping the flock together.
 					// @param flock : a vector of all the Boid objects
-					void Cohesion(vector<Boid> flock);
+					void Cohesion(vector&ltBoid&gt flock);
 
 					// Applies the rule of velocity matching on the boids.
 					// Thus ensuring that the all the boids in the flock move in the same direction.
 					// @param flock : a vector of all the Boid objects
-					void Alignment(vector<Boid> flock);
+					void Alignment(vector&ltBoid&gt flock);
 
 					// Applies the rules of flocking on the boid.
 					// @param flock : a vector of all the Boid objects
 					// @param obstacles : a vector of all the Obstacle objects
-					void applyRules(vector<Boid> flock, vector<Obstacle> obstacles);
+					void applyRules(vector&ltBoid&gt flock, vector<Obstacle&gt obstacles);
 
 					// limits the velocity of the boid so that it does not exceed the specified value.
 					void limitVelocity();
@@ -141,10 +137,10 @@
 					// Moves the boids to opposite side of the screen when a boid reaches the edge of the screen.
 					void boundPosition();
 					
-					// Run the boid by applying the rules on it.
+					// Animate the boid by applying the rules on it.
 					// @param flock : a vector of all the Boid objects
 					// @param obstacles : a vector of all the Obstacle objects
-					void run(vector<Boid> flock, vector<Obstacle> obstacles);       
+					void run(vector&ltBoid&gt flock, vector<Obstacle&gt obstacles);       
 			};
 
 		  </code>
@@ -177,78 +173,40 @@
   	</pre>
   </p>
 
-  <h1 id="Fractals">Fractals</h1>
-  <h2 id="Recursion">Using Recursion</h2>
-	<p>
-		Fractals can be created using a recursive function since most fractals contain
-		a repeating graphic element.<br>
-		<b>CircleRecursion.cpp</b> creates a fractal using this approach.
-		<pre>
-			<code>
-				// Recursive function for drawing fractal using circles
-				// @param x : x coordinate of center of circle
-				// @param y : y coordinate of center of circle
-				// @param d : diameter
-				void drawPattern(int x, int y, int d){
-					basics.drawCircle(x,y,d/2);
-					if(d>10){
-						drawPattern(x+d/2, y, d/2);
-						drawPattern(x-d/2, y, d/2);
-						drawPattern(x, y+d/2, d/2);
-						drawPattern(x, y-d/2, d/2);
-					}
-				}
-			</code>
-		</pre>
-	</p>
-  <h2 id="Lsystems">Using L-Systems</h2>
+  <h1 id="Flock">Flock Simulation</h1>
   <p>
-	  Another way of creating fractals is using L-Systems.<br>
-	  Each L-System consists of an axiom, constants, variables and production rules.<br>
-	  For example, the L-System used for creating the Dragon Curve:
-	  <pre>
-			Variables: 	F,  H
-			Constants:	 +,  -,  [,  ]
-			Axiom:	 F
-			Production Rules: 	F -> F+H,	 H -> F-H
-	  </pre>
-	  <p>Where <i>F</i> and <i>H</i> tell the turtle to move forward, '+' tells it to
-	  turn right by 90<sup>0</sup> and '-' tells it to turn left by 90<sup>0</sup>.<br>
-	  We start with <i>F</i> as the initial string, and for each generation, we replace
-	  <i>F</i> and <i>H</i> according to the production rules. When we draw the path
-	  of the turtle, we get the fractal for the given generation.</p>
-	  <p>All other fractals have been created using this approach.</p>
+		<p>
+				<b>main.cpp</b> contains the code required to create a Window, set coordinate system
+				and render graphics using the methods from glfw3 and graphics library. 
+				<br>It also renders the boids and the obstacles. 
+		</p>
 	  <pre>
 		<code>
-			// Function for generating the path string for the next generation using the current path string
-			// @param str : currnt path string
-			void nextGeneration(string& str){
-				int i = 0;
-				string newstr = "";
-				while(i < str.length()){
-					if(str[i] == 'F'){
-						newstr += "F+H";
-					}else if(str[i] == 'H'){
-						newstr += "F-H";
-					} else {
-						newstr += str[i];
-					}
-					i++;
-				}
-				str = newstr;
-			}
+			// Vectors to store all the boids and obstacles
+			vector&ltBoid&gt flock;
+			vector&ltObstacle&gt obstacles;
+
+			// Creates the Window using GLFW methods, registers callback for mouse button press, Esc press.
+			// Uses method from Boid.h and Obstacle.h to create and animate the flock and obstacles.
+			int main(void);
+
+			// Re-adjust Viewport size when window is resized
+			void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+			// Closes the window when escape key is pressed
+			void processInput(GLFWwindow *window);
+
+			// Creates a boid on left-click and an obstacle on right click
+			void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+
 		  </code>
 	  </pre>
   </p>
 
-	<p>
-		The main function contains the code required to create a Window, set coordinate system
-		and render graphics using the methods from glfw3 and graphics library.
-	</p>
-
+	
 	<div>
 		<p>
-			<a target="_blank" href="https://github.com/yashdeep97/3D-Classroom-OpenGL">See full code</a>
+			<a target="_blank" href="https://github.com/yashdeep97/DistributedBehaviouralModel-Graphics">See full code</a>
 		</p>
 	</div>
 </div>

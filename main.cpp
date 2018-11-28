@@ -14,11 +14,11 @@ using namespace std;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-// void setupFlock(Flock);
-void drawPoint(int x, int y);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 vector<Boid> flock;
 vector<Obstacle> obstacles;
+int flag = 0;
 
 int main(void)
 {
@@ -50,19 +50,9 @@ int main(void)
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     glfwSetMouseButtonCallback(window, mouse_button_callback);
-
-    // Boid b(300.5, 400.6);
-    // Flock flock;
-    // setupFlock(flock);
-    // flock.getSize();
-
+    glfwSetKeyCallback(window, key_callback);
 
     
-    for(int i = 0; i < 200; i++)
-    {
-        flock.push_back(Boid((float)SCREEN_WIDTH/2, (float)SCREEN_WIDTH/2));
-    }
-
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -116,4 +106,15 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         glfwGetCursorPos(window, &xpos, &ypos);
         obstacles.push_back(Obstacle((float)xpos, abs((float)ypos - SCREEN_HEIGHT)));
     }    
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_S && action == GLFW_PRESS && flag == 0){
+        for(int i = 0; i < 200; i++)
+        {
+            flock.push_back(Boid((float)SCREEN_WIDTH/2, (float)SCREEN_WIDTH/2));
+        }
+        flag = 1;
+    }
 }
